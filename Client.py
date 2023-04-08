@@ -4,8 +4,9 @@ import socket
 import threading
 import requests
 
-#Getting the local ip address
-ip = socket.gethostbyname(socket.gethostname())
+#Getting the public ip address of the user
+reponse = requests.get("https://api64.ipify.org?format=json")
+ip = reponse.json()['ip']
 
 server = StreamingServer(ip, 8888)
 reciver = AudioReceiver(ip, 1111)
