@@ -1,71 +1,62 @@
 from vidstream import *
-import tkinter as tk
-import threading
+import tkinter as  tk
 import socket
+import threading
+import requests
 
-# Set up the server IP address and port
-server_ip = 'YOUR_PUBLIC_IP_ADDRESS'  # Replace with your public IP address
-server_port = 9999
+#Getting the public ip address of the user
+response = requests.get('https://api64.ipify.org?format=json')
+ip = response.json()["ip"]
 
-# Create the server object
-server = StreamingServer(server_ip, server_port)
-receiver = AudioReceiver(server_ip, 8888)
+server = StreamingServer(ip, 9999)
+reciver = AudioReceiver(ip, 8888)
 
-def start_listening():
+def start_Listening():
     t1 = threading.Thread(target=server.start_server)
-    t2 = threading.Thread(target=receiver.start_server)
+    t2 = threading.Thread(target=reciver.start_server)
     t1.start()
     t2.start()
 
-def camera_screen():
-    # Get the target IP address from the text box
-    target_ip = text_target.get(1.0, 'end-1c')
-    cam_client = CameraClient(target_ip, 7777)
-    t3 = threading.Thread(target=cam_client.start_stream)
+
+def Camera_screen():
+    camC = CameraClient(text_target.get(1.0,'end-1c'),7777)
+    t3 = threading.Thread(target=camC.start_stream)
     t3.start()
 
-def screen_sharing():
-    # Get the target IP address from the text box
-    target_ip = text_target.get(1.0, 'end-1c')
-    screen_client = ScreenShareClient(target_ip, 7777)
-    t4 = threading.Thread(target=screen_client.start_stream)
+def Screen_sharing():
+    Screenshar = ScreenShareClient(text_target.get(1.0,'end-1c'),7777)
+    t4 = threading.Thread(target=Screenshar.start_stream)
     t4.start()
 
-def audio_stream():
-    # Get the target IP address from the text box
-    target_ip = text_target.get(1.0, 'end-1c')
-    audio_client = AudioSender(target_ip, 7777)
-    t5 = threading.Thread(target=audio_client.start_stream)
+def Audio_StreaM():
+    AudiS = AudioSender(text_target.get(1.0,'end-1c'),7777)
+    t5 = threading.Thread(target=AudiS.start_stream)
     t5.start()
 
-# Create the GUI window
-window = tk.Tk()
-window.title("Virtual Office")
-window.geometry('300x200')
 
-# Label for target IP address
-label_target = tk.Label(window, text="Enter Recipient IP:")
+
+
+#GUI
+window = tk.Tk()
+window.title("Zenith Virtual Office v1.1")
+window.geometry('3000x200')
+
+label_target = tk.Label(window,text="Enter Username:")
 label_target.pack()
 
-# Text box for target IP address
 text_target = tk.Text(window, height=1)
 text_target.pack()
 
-# Button to start listening
-btn_listen = tk.Button(window, text="Start Listening", width=20, command=start_listening)
-btn_listen.pack(pady=5)
+btn_listen = tk.Button(window,text="Start Listening",width=50, command=start_Listening)
+btn_listen.pack(anchor=tk.CENTER, expand=True)
 
-# Button to start camera stream
-btn_camera = tk.Button(window, text="Start Camera", width=20, command=camera_screen)
-btn_camera.pack(pady=5)
+btn_camera = tk.Button(window,text="Start Camera ",width=50, command=Camera_screen)
+btn_camera.pack(anchor=tk.CENTER, expand=True)
 
-# Button to start screen sharing
-btn_screen = tk.Button(window, text="Start Screen Share", width=20, command=screen_sharing)
-btn_screen.pack(pady=5)
+btn_screen = tk.Button(window,text="Start Screen share",width=50, command=Screen_sharing)
+btn_screen.pack(anchor=tk.CENTER, expand=True)
 
-# Button to start audio stream
-btn_audio = tk.Button(window, text="Start Audio", width=20, command=audio_stream)
-btn_audio.pack(pady=5)
+btn_audio= tk.Button(window,text="Start Audio",width=50, command=Audio_StreaM)
+btn_audio.pack(anchor=tk.CENTER, expand=True)
 
-# Run the GUI event loop
 window.mainloop()
