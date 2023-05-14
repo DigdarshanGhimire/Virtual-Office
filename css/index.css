@@ -197,11 +197,11 @@ html{
         display: block;
     }
 }
-/* @media only screen and (max-width:290px){
+@media only screen and (max-width:290px){
     html{
         font-size: 4px;
     }
-} */
+}
 @media only screen and (max-width:232px){
     /* html{
         font-size: 3px;
