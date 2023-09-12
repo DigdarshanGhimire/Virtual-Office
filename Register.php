@@ -1,103 +1,216 @@
-<?php
-    session_start();
-
-    // connect to the database
+<?php 
 
 
-$sname= "localhost";
 
-$unmae= "root";
-
-$password = "";
-
-$db_name = "zenith_reg";
-
-$conn = mysqli_connect($sname, $unmae, $password, $db_name);
-
-if (!$conn) {
-
-    echo "Connection failed!";
-}
-else{
-    echo " Connection Succeful";
-}
-
-    
-    if(isset($_POST['username']) && isset($_POST['password'])){
-        $username=$_POST['username'];
-		$surname=$_POST[ 'Surname'];
-		$firstname=$_POST[ 'Firstname'];
-		$lastname=$_Post[ 'lastname'];
-		$dob=$_POST ['dob'];
-		$phnum=$_POST ['Phonenumber'];
-		$pass=$_POST ['password'];
-		$conp=$_POST ['Confirm passsword'];
-        $email=$_POST['email'];
-        $password=$_POST['password'];
-        $male=$_POST['male'];
-		$female=$_POST['female'];
-    $temp = mysqli_query($db,"INSERT INTO zenith_reg (Username,surname,firstname,lastname,phonenumber,dob,password,confirm password,email,male,female) 
-    VALUES ('$username','$email','$password')");
-    
-    if(!$temp){
-        echo "error";
-    }else{
-        echo "Your registration is done.";
-    }
-    }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Register</title>
-	<link rel="stylesheet" type="text/css" href="Register.css">
+    <meta charset="utf-8">
+    <title>Registration</title>
+    <link rel="stylesheet" type="text/css" href="Style.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            background-image: url("t.jpg");
+            background-size: cover;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 28px;
+            margin: 0 28px;
+            border-radius: 10px;
+            box-shadow: inset -2px 2px 2px white;
+        }
+
+        .form-title {
+            font-size: 26px;
+            font-weight: 600;
+            text-align: center;
+            padding-bottom: 6px;
+            color: lightgreen;
+            text-shadow: 2px 2px 2px black;
+            border-bottom: 1px solid white; /* Corrected the typo here */
+        }
+
+        .usr_info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px 0;
+        }
+
+        .usr_input:nth-child(2n) {
+            justify-content: flex-end; /* Corrected the typo here */
+        }
+
+        .usr_input {
+            display: flex;
+            flex-wrap: wrap;
+            width: 48%; /* Adjusted the width to make room for labels and inputs */
+            padding-bottom: 15px;
+        }
+
+        .usr_input label {
+            flex-basis: 30%; /* Added label width */
+            text-align: right;
+            margin-right: 10px;
+            color: white;
+        }
+
+        .usr_input input {
+            flex-grow: 1; /* Added input width */
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .gender {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+        }
+
+        .category {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .category label {
+            margin-right: 10px;
+        }
+
+        .submit {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .submit input {
+            padding: 10px 20px;
+            background-color: lightgreen;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+        nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: black; /* Set background color */
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline-block;
+  padding: 10px 20px;
+}
+
+nav ul li a {
+  color: lightgreen;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav ul li a:hover {
+  color: white; /* Change color on hover */
+  background-color: lightgreen; /* Change background color on hover */
+}
+
+
+a link{
+color:white;
+text-decoration: none;
+background-color: none;
+}
+a:active{
+	color:white;
+	text-decoration:none;
+	background-color:none;
+}
+a:hover{
+	color:lightgreen;
+	text-decoration: none;
+	background-color :none;
+}
+a{
+	color:white; 
+}
+    </style>
 </head>
 <body>
-	<nav>
-		<li> <a href="Home.html"> Home </a></li>
-		<li> <a href="#"> About Us </a></li>
-		<li> <a href="#"> Contact Us</a></li>
-	</nav>
-	<div id="maincontainer">
 
-		<div class="loginbox">
-			<form action="welcome.php" method="post">
-				<p> Username </p>
-				<input type="text" placeholder="Enter username">
-				<p> First Name </p>
-				<input type="text" placeholder="Enter your Surname">
-				<p> Middle Name </p>
-				<input type="text" placeholder="Enter your Middle name">
-				<p> Last Name </p>
-				<input type="text" placeholder="Enter your Last name">
-				<p> Password </p>
-				<input type="password" placeholder="Enter password">
-				<p>Confirm Password</p>
-				<input type="password" placeholder="Confirm password">
-		     	<p> D.O.B </p>
-			    <input type="date" placeholder="Enter your date of birth">
-			    <p>Phone number</p>
-			    <input type="tell" placeholder="Enter your phone number">
-			    <p>Enter Email address</p>
-			    <input type="email" placeholder="Enter Email address">
-			    <p> Gender </p>
-				<input type="radio" name="gender">
-				<input type="radio" name="gender" value="female" 
-				<?php if (isset($gender) && $gender=="female") echo "checked"; ?>> Female
-                <input type="radio" name="gender" value="male" 
-                <?php if (isset($gender) && $gender=="male") echo "checked"; ?>> Male
-				<input type="submit" onclick="submit()">
 
-				<script>
-					function submit(){
-						window.location.href="welcome.php";
-					}
-				</script>
-		    	<a href="Forgot_Password.html"></a>
-		    	<a href="Login"></a>
-		</form>
-	</div>	
+<nav>
+    <ul>
+        <li> <a href="Home.php"> Home </a> </li>
+        <li> <a href="About us .php"> About us </a> </li>
+        <li> <a href="Contact us.php"> Contact us </a> </li>
+    </ul>
+</nav>
+
+<div class="container">
+    <h1 class="form-title">Registration</h1>
+    <form action="#">
+        <div class="usr_info">
+            <div class="usr_input">
+                <label for="firstname">First name</label>
+                <input type="text" id="first-name" name="firstname" placeholder="Enter your First name">
+            </div>
+            <div class="usr_input">
+                <label for="lastname">Last Name</label>
+                <input type="text" id="last-name" name="lastname" placeholder="Enter your Last name">
+            </div>
+            <div class="usr_input">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username">
+            </div>
+            <div class="usr_input">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your Password">
+            </div>
+            <div class="usr_input">
+                <label for="cp">Confirm Password</label>
+                <input type="password" id="cp" name="cp" placeholder="Confirm your password">
+            </div>
+            <div class="usr_input">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your Email">
+            </div>
+        </div>
+        <div class="gender">
+            <span class="gender">Gender</span>
+            <div class="category">
+                <input type="radio" name="gender" id="male">
+                <label for="male">Male</label>
+                <input type="radio" name="gender" id="female">
+                <label for="female">Female</label>
+            </div>
+        </div>
+        <div class="submit">
+            <input type="submit" value="Register">
+        </div>
+    </form>
 </div>
 </body>
 </html>
